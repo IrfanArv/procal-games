@@ -19,14 +19,6 @@ class Welcome extends CI_Controller
 
 		$this->data['title'] = 'S-26 | Playgame';
 		$this->load->view('frontend/home/home', $this->data);
-
-		// if ($this->validregist()) {
-		// 	$this->data['title'] = 'S-26 | Play Game';
-		// 	$this->load->view('frontend/home/home', $this->data);
-		// } else {
-		// 	$this->data['title'] = 'S-26 | Register';
-		// 	$this->load->view('frontend/auth/register', $this->data);
-		// }
 	}
 
 	function feedback(){
@@ -36,17 +28,27 @@ class Welcome extends CI_Controller
 	}
 
 	function save(){
+		$this->load->library('form_validation');
+		$this->load->library('session');
+		$this->form_validation->set_rules('saran', 'Kritik & Saran', 'required');
+		$this->form_validation->set_message('required', 'Kritik & Saran Tidak Boleh Kosong');
 
-		$data = [
-            'player_id' => $this->input->post('id', TRUE),
-			'fb_1' => $this->input->post('fb_1', TRUE),
-			'fb_2' => $this->input->post('fb_2', TRUE),
-			'fb_3' => $this->input->post('fb_3', TRUE),
-			'fb_4' => $this->input->post('saran', TRUE)
-        ];
-        $result = $this->Auth_model->saveFeed($data);
-        echo json_encode($result);
-		
+
+
+        if ($this->form_validation->run() == FALSE){
+            $errors = validation_errors();
+            echo json_encode(['error'=>$errors]);
+        }else{
+			$data = [
+				'player_id' => $this->input->post('id', TRUE),
+				'fb_1' => $this->input->post('fb_1', TRUE),
+				'fb_2' => $this->input->post('fb_2', TRUE),
+				'fb_3' => $this->input->post('fb_3', TRUE),
+				'fb_4' => $this->input->post('saran', TRUE)
+			];
+			$result = $this->Auth_model->saveFeed($data);
+			echo json_encode($result);
+        }
 	}
 
 	public function download(){				

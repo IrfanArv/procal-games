@@ -34,6 +34,7 @@ class Api extends CI_Controller {
     public function reqToken()
     {
         header('Access-Control-Allow-Origin: *');
+
         $data = (array)json_decode(file_get_contents('php://input'), true);
         $tokenID        = random_string('alnum', 8); 
         $ip 	        = $this->input->ip_address();

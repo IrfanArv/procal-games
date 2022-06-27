@@ -20,9 +20,9 @@
             </div>
             
         </div>
-    </div>
+    </div> 
     
-    <div class="lead col-lg-8 mx-auto">
+    <div class="lead col-lg-10 mx-auto">
 
         <table class="table table-borderless">
             
@@ -97,7 +97,7 @@
                             html += '<tr>'+
                                         '<td><div class="rank">'+ count++ +'</div></td>'+
                                         '<td><div class="name">'+ data[i].account_name +'</div></td>'+
-                                        '<td><div class="phone">'+ data[i].account_phone.substr(0, 9) + 'XXX' +'</div></td>'+
+                                        // '<td><div class="phone">'+ data[i].account_phone.substr(0, 9) + 'XXX' +'</div></td>'+
                                         '<td class="point">'+ data[i].account_score +' <img src="<?= base_url(); ?>assets/images/coin.png" class="img-fluid coin" alt="" ></div>'+
                                     '</tr>';
                         }

@@ -16,7 +16,7 @@
 
     <script>
     function save(){
-    $('#isi4_btn').text('Menyimpan ...'); 
+        $('#isi4_btn').text('Menyimpan ...'); 
         $('#isi4_btn').attr('disabled',true); 
     $.ajax({
 
@@ -27,12 +27,20 @@
 
 
         success: function(data){
-            $('#end').show();
-            $("#hello").hide();  
-            $('#isi1').hide();   
-            $('#isi2').hide();
-            $('#isi3').hide();
-            $('#isi4').hide();
+            if($.isEmptyObject(data.error)){
+                $(".print-error-msg").css('display','none');
+                $('#end').show();
+                $("#hello").hide();
+                $('#isi1').hide();
+                $('#isi2').hide();
+                $('#isi3').hide();
+                $('#isi4').hide();
+            }else{
+                $(".print-error-msg").css('display','block');
+                $(".print-error-msg").html(data.error);
+                $('#isi4_btn').text('Submit'); 
+                $('#isi4_btn').attr('disabled',false); 
+            }
         }
     });
 }
@@ -95,10 +103,16 @@
 </head>
 <body>
 
+<div class="row text-center">
+    <div class="col-md-12">
+            <p class="wording mbsel print-error-msg mb-0" style="display:none">
+           
+            </p>
+    </div>
+</div>
 <div class="container text-center">
 <?php $user_data = substr( $_SERVER['REQUEST_URI'],23); ?>
     
-        
         <div class="row" id="hello">
             <!-- <?php  echo substr( $_SERVER['REQUEST_URI'],23); ?>  -->
 
@@ -135,7 +149,7 @@
                             </p>
                             <div class="text-left formfeedback">
                                 <div class="form-check">
-                                    <input class="option-input radio" type="radio" name="fb_1" id="fb_11" value="1" checked>
+                                    <input class="option-input radio" type="radio" name="fb_1" id="fb_11" value="1" checked required>
                                     <label class="form-check-label" for="fb_12">
                                         Bagus
                                     </label>
@@ -172,7 +186,7 @@
                             </p>
                             <div class="text-left formfeedback">
                                 <div class="form-check">
-                                    <input class="option-input radio" type="radio" name="fb_2" id="fb_21" value="1" checked>
+                                    <input class="option-input radio" type="radio" name="fb_2" id="fb_21" value="1" checked required>
                                     <label class="form-check-label" for="fb_22">
                                         Bagus
                                     </label>
@@ -209,7 +223,7 @@
                             </p>
                             <div class="text-left formfeedback">
                                 <div class="form-check">
-                                    <input class="option-input radio" type="radio" name="fb_3" id="fb_31" value="1" checked>
+                                    <input class="option-input radio" type="radio" name="fb_3" id="fb_31" value="1" checked required>
                                     <label class="form-check-label" for="fb_31">
                                         Menarik
                                     </label>
@@ -241,10 +255,11 @@
                 <div class="d-flex justify-content-center selamat">
                     <div class="row">
                         <div class="col-12">
+
                             <p class="wording">
                             Saran dan Kritik
                             </p>
-                                <textarea id="saran" class="textarea" name="saran" rows="10" cols="35" required="required"></textarea>
+                                <textarea id="saran" class="textarea" name="saran" rows="10" cols="35" required></textarea>
                             
                             <a id="isi4_btn" onclick="save()" class="btn btn-primary btn-feedback text-white btn-lg fixed-bottom"> Submit </a>
                         </div>

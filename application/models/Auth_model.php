@@ -58,5 +58,22 @@ class Auth_model extends CI_Model {
 		return $hasil;
 
 	}
+
+	function login_admin($username, $password) {
+        $this->db->select('id,nama,email,password');
+        $this->db->where('email', $username);
+        $this->db->where('password', sha1($password));
+        $q = $this->db->get('user');
+        $user = $q->result();
+        $num = $q->num_rows();
+        if ($num > 0) {
+			$this->session->set_userdata('id', $user[0]->id);
+            $this->session->set_userdata('nama', $user[0]->nama);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 	
 }

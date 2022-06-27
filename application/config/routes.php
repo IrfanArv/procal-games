@@ -14,3 +14,8 @@ $route['feedback'] = 'welcome/feedback';
 //Api
 $route['api/requestToken'] = 'api/api/reqToken';
 $route['api/end'] = 'api/api/endGame';
+
+// dashboard
+$route['dashboard'] = 'backend/dashboard';
+$route['dashboard/login'] = 'backend/dashboard/login';
+$route['logout'] = 'backend/dashboard/logout';
